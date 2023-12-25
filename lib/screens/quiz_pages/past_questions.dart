@@ -5,7 +5,7 @@ import 'package:inquire/widgets/answer_options.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/question_widgets.dart';
 
-import '../../models/question_,model.dart';
+import '../../models/question_model.dart';
 
 class PastQuestionPage extends StatefulWidget {
   const PastQuestionPage({Key? key}) : super(key: key);
