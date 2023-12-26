@@ -57,7 +57,7 @@ class Homepage extends StatelessWidget {
                   children: [
                     HomepageButtons(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AddQuestions()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
                       },
                       buttonText: 'Submit Questions',
                       buttonTextColor: Colors.white,
