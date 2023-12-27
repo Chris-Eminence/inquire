@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inquire/screens/quiz_pages/past_questions.dart';
+import 'package:inquire/screens/add_question_pages/past_questions.dart';
 import 'package:inquire/widgets/home_screen_button.dart';
 
-class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+class ListOfQuestionCourses extends StatefulWidget {
+  const ListOfQuestionCourses({super.key});
 
   @override
-  State<QuestionScreen> createState() => _QuestionScreenState();
+  State<ListOfQuestionCourses> createState() => _ListOfQuestionCoursesState();
 }
 
-class _QuestionScreenState extends State<QuestionScreen> {
+class _ListOfQuestionCoursesState extends State<ListOfQuestionCourses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,20 +25,20 @@ class _QuestionScreenState extends State<QuestionScreen> {
             child: Column(
               children: [
                 HomepageButtons(
-                    buttonText: 'Theory of Computing',
+                    buttonText: 'Project Management',
                     buttonTextColor: Color(0xFF1D2445),
                     buttonColor: Colors.orange,
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PastQuestionPage()));
+                              builder: (context) => ProjectManagementQuizPage()));
                     }),
                 const SizedBox(
                   height: 10,
                 ),
                 HomepageButtons(
-                    buttonText: 'Numerical Methods',
+                    buttonText: 'Human Computer Interface',
                     buttonTextColor: Colors.white,
                     buttonColor: Color(0xFF1D2445),
                     onPressed: () {}),
@@ -46,7 +46,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   height: 10,
                 ),
                 HomepageButtons(
-                    buttonText: 'System Architecture and Designs',
+                    buttonText: 'Database Management',
                     buttonTextColor: Color(0xFF1D2445),
                     buttonColor: Colors.orange,
                     onPressed: () {}),
@@ -54,23 +54,14 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   height: 10,
                 ),
                 HomepageButtons(
-                    buttonText: 'Project Management',
+                    buttonText: 'Operating Systems I',
                     buttonTextColor: Colors.white,
                     buttonColor: Color(0xFF1D2445),
                     onPressed: () {}),
                 const SizedBox(
                   height: 10,
                 ),
-                HomepageButtons(
-                    buttonText: 'Computer Hardware',
-                    buttonTextColor: Color(0xFF1D2445),
-                    buttonColor: Colors.orange,
-                    onPressed: () {}),
-                const SizedBox(
-                  height: 10,
-                ),
-
-              ],
+                             ],
             ),
           ),
         ));

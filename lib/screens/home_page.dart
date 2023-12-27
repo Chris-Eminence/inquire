@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inquire/add_questions_pages/add_questions.dart';
-import 'package:inquire/screens/courses_screen.dart';
+import 'package:inquire/add_questions_pages/project_management_question.dart';
+import 'package:inquire/screens/answer_pages/answer_courses_screen.dart';
 import 'package:inquire/widgets/home_screen_button.dart';
 
 class Homepage extends StatelessWidget {
@@ -71,7 +71,7 @@ class Homepage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const QuestionScreen()));
+                                builder: (context) => const ListOfAnswerCourses()));
                       },
                       buttonText: 'Past Questions',
                       buttonTextColor: const Color(0xFF1D2445),

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inquire/screens/quiz_pages/result_page.dart';
+import 'package:inquire/screens/add_question_pages/result_page.dart';
 import 'package:inquire/widgets/answer_options.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/question_widgets.dart';
 
 import '../../models/question_model.dart';
 
-class PastQuestionPage extends StatefulWidget {
-  const PastQuestionPage({Key? key}) : super(key: key);
+class ProjectManagementQuizPage extends StatefulWidget {
+  const ProjectManagementQuizPage({Key? key}) : super(key: key);
 
   @override
-  State<PastQuestionPage> createState() => _PastQuestionPageState();
+  State<ProjectManagementQuizPage> createState() => _ProjectManagementQuizPageState();
 }
 
-class _PastQuestionPageState extends State<PastQuestionPage> {
+class _ProjectManagementQuizPageState extends State<ProjectManagementQuizPage> {
   // List of questions with their options and correct answers
   final List<QuestionModel> _questions = [
     QuestionModel(id: '10', questionTitle: '2+2', options: {
