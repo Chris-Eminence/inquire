@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inquire/screens/authentication_screens/registration_screen.dart';
+import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/auth_text_field.dart';
 
@@ -53,6 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 30),
                       AuthButtons(
                         buttonText: 'Login',
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Homepage()));
+                        },
                       ),
                       const SizedBox(height: 30),
                       Row(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inquire/add_questions_pages/project_management_question.dart';
+import 'package:inquire/screens/add_question_pages/project_management_question.dart';
+import 'package:inquire/screens/add_question_pages/question_courses_screen.dart';
 import 'package:inquire/screens/answer_pages/answer_courses_screen.dart';
 import 'package:inquire/widgets/home_screen_button.dart';
 
@@ -57,7 +58,11 @@ class Homepage extends StatelessWidget {
                   children: [
                     HomepageButtons(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ListOfQuestionCourses()));
                       },
                       buttonText: 'Submit Questions',
                       buttonTextColor: Colors.white,
@@ -69,9 +74,11 @@ class Homepage extends StatelessWidget {
                     HomepageButtons(
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ListOfAnswerCourses()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListOfAnswerCourses(),
+                          ),
+                        );
                       },
                       buttonText: 'Past Questions',
                       buttonTextColor: const Color(0xFF1D2445),

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inquire/components/custom_colors.dart';
+import 'package:inquire/models/db_connect.dart';
+import 'package:inquire/models/question_model.dart';
 import 'dart:convert';
 
 import 'package:inquire/widgets/home_screen_button.dart';
 
-class ProjectManagementQuestion extends StatefulWidget {
+class OSquestion extends StatefulWidget {
   @override
-  _ProjectManagementQuestionState createState() => _ProjectManagementQuestionState();
+  _OSquestionState createState() => _OSquestionState();
 }
 
-class _ProjectManagementQuestionState extends State<ProjectManagementQuestion> {
+class _OSquestionState extends State<OSquestion> {
   TextEditingController idController = TextEditingController();
   TextEditingController questionController = TextEditingController();
   TextEditingController option1Controller = TextEditingController();
@@ -30,7 +32,7 @@ class _ProjectManagementQuestionState extends State<ProjectManagementQuestion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Question'),
+        title: const Text('Operating Systems Questions'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -106,33 +108,37 @@ class _ProjectManagementQuestionState extends State<ProjectManagementQuestion> {
                         option3Controller.text: isOption3Correct,
                         option4Controller.text: isOption4Correct,
                       };
-                      final url = Uri.parse(
-                          'https://inquire-24d6d-default-rtdb.firebaseio.com/project_management.json');
 
-                      // Add data to the database
-                      await http.post(
-                        url,
-                        body: json.encode(
-                          {
-                            'title': questionController.text,
-                            'options': options,
-                          },
-                        ),
-                      );
+                      DBconnect db = DBconnect();
+                      // Use a try-catch block to handle errors during database interaction
+                      try {
+                        await db.addHCIQuestions(QuestionModel(
+                          id: idController.text,
+                          questionTitle: questionController.text,
+                          options: options,
+                        ));
 
-                      // Hide loading indicator and clear text fields
-                      setState(() {
-                        isLoading = false;
-                        questionController.clear();
-                        option1Controller.clear();
-                        option2Controller.clear();
-                        option3Controller.clear();
-                        option4Controller.clear();
-                        isOption1Correct = false;
-                        isOption2Correct = false;
-                        isOption3Correct = false;
-                        isOption4Correct = false;
-                      });
+                        // Database operation was successful, hide loading indicator and clear text fields
+                        setState(() {
+                          isLoading = false;
+                          questionController.clear();
+                          option1Controller.clear();
+                          option2Controller.clear();
+                          option3Controller.clear();
+                          option4Controller.clear();
+                          isOption1Correct = false;
+                          isOption2Correct = false;
+                          isOption3Correct = false;
+                          isOption4Correct = false;
+                        });
+                      } catch (error) {
+                        // Handle errors, e.g., show an error message
+                        print('Error adding question to the database: $error');
+                        // Optionally, you can still hide the loading indicator here if needed
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
                     },
                   ),
 
@@ -146,7 +152,8 @@ class _ProjectManagementQuestionState extends State<ProjectManagementQuestion> {
                     ),
                 ],
               ),
-            
+
+
 
 
             ],

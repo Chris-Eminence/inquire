@@ -7,14 +7,14 @@ import 'package:inquire/widgets/question_widgets.dart';
 
 import '../../models/question_model.dart';
 
-class ProjectManagementQuizPage extends StatefulWidget {
-  const ProjectManagementQuizPage({Key? key}) : super(key: key);
+class HCIPastQuestion extends StatefulWidget {
+  const HCIPastQuestion({Key? key}) : super(key: key);
 
   @override
-  State<ProjectManagementQuizPage> createState() => _ProjectManagementQuizPageState();
+  State<HCIPastQuestion> createState() => _HCIPastQuestionState();
 }
 
-class _ProjectManagementQuizPageState extends State<ProjectManagementQuizPage> {
+class _HCIPastQuestionState extends State<HCIPastQuestion> {
   // List of questions with their options and correct answers
   final List<QuestionModel> _questions = [
     QuestionModel(id: '10', questionTitle: '2+2', options: {

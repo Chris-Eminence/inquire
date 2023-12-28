@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inquire/add_questions_pages/project_management_question.dart';
+import 'package:inquire/screens/add_question_pages/hci_question.dart';
+import 'package:inquire/screens/add_question_pages/project_management_question.dart';
 import 'package:inquire/models/db_connect.dart';
 import 'package:inquire/models/question_model.dart';
 import 'package:inquire/screens/authentication_screens/login_screen.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ListOfAnswerCourses(),
+      home: SplashScreen(),
     );
   }
 }
