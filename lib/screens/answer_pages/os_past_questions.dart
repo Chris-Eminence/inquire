@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inquire/screens/add_question_pages/result_page.dart';
+import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/widgets/answer_options.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/question_widgets.dart';
@@ -50,8 +51,19 @@ class _OSPastQuestionState extends State<OSPastQuestion> {
       showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) =>
-            ResultPage(result: score, questionLength: _questions.length, startOver: () { startOver(); },),
+        builder: (context) => ResultPage(
+          result: score,
+          questionLength: _questions.length,
+          startOver: () {
+            startOver();
+          },
+          goToHomePage: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Homepage()));
+          },
+        ),
       );
     } else {
       // If not the last question
@@ -76,7 +88,7 @@ class _OSPastQuestionState extends State<OSPastQuestion> {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           shape: RoundedRectangleBorder(
             borderRadius:
-            BorderRadius.circular(35.0), // Adjust the radius as needed
+                BorderRadius.circular(35.0), // Adjust the radius as needed
           ),
         ));
       }
@@ -93,15 +105,15 @@ class _OSPastQuestionState extends State<OSPastQuestion> {
         score++;
       }
 
-        setState(() {
-          isPressed = true;
-          isAlreadySelected = true;
-        });
+      setState(() {
+        isPressed = true;
+        isAlreadySelected = true;
+      });
     }
   }
 
   // Function tha handles the starting over of the current quiz
-  void startOver(){
+  void startOver() {
     setState(() {
       questionIndex = 0;
       score = 0;
@@ -164,9 +176,9 @@ class _OSPastQuestionState extends State<OSPastQuestion> {
                   // Change color based on whether the answer is correct or incorrect
                   color: isPressed
                       ? _questions[questionIndex].options.values.toList()[i] ==
-                      true
-                      ? Colors.lightGreen
-                      : Colors.redAccent
+                              true
+                          ? Colors.lightGreen
+                          : Colors.redAccent
                       : Colors.transparent,
                 ),
               ),

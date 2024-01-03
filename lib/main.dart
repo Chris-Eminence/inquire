@@ -16,7 +16,7 @@ import 'package:inquire/screens/onboarding_screens/splash_screen.dart';
 void main() {
 
   var db = DBconnect();
-  db.getQuestions();
+    db.getProjectManagementQuestions();
   // db.addQuestions(QuestionModel(id: '15', questionTitle: '10 + 10', options: {
   //   '1010' : false,
   //   '02' : false,

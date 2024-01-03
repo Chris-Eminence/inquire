@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inquire/models/db_connect.dart';
 import 'package:inquire/screens/add_question_pages/result_page.dart';
+import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/widgets/answer_options.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/question_widgets.dart';
 
+import '../../components/custom_colors.dart';
 import '../../models/question_model.dart';
 
 class ProjectManagementPastQuestion extends StatefulWidget {
   const ProjectManagementPastQuestion({Key? key}) : super(key: key);
 
   @override
-  State<ProjectManagementPastQuestion> createState() => _ProjectManagementPastQuestionState();
+  State<ProjectManagementPastQuestion> createState() =>
+      _ProjectManagementPastQuestionState();
 }
 
-class _ProjectManagementPastQuestionState extends State<ProjectManagementPastQuestion> {
-  // List of questions with their options and correct answers
-  final List<QuestionModel> _questions = [
-    QuestionModel(id: '10', questionTitle: '2+2', options: {
-      '5': false,
-      '1': false,
-      '4': true,
-      '22': false,
-    }),
-    QuestionModel(id: '11', questionTitle: '2+20', options: {
-      '5': false,
-      '1': false,
-      '4': false,
-      '22': true,
-    })
-  ];
+class _ProjectManagementPastQuestionState
+    extends State<ProjectManagementPastQuestion> {
 
   // Index to track the current question
+
+  var dbConnect = DBconnect();
+  late Future _questions;
+
+  Future<List<QuestionModel>> getQuestions() async {
+    // db method to fetch questions
+    return dbConnect.getProjectManagementQuestions();
+  }
+
   int questionIndex = 0;
 
   // Score to track the user's progress
@@ -44,14 +43,23 @@ class _ProjectManagementPastQuestionState extends State<ProjectManagementPastQue
   bool isAlreadySelected = false;
 
   // Function to move to the next question or show the result page
-  void nextQuestion() {
-    if (questionIndex == _questions.length - 1) {
+  void nextQuestion(int questionLength) {
+    if (questionIndex == questionLength - 1) {
       // If it's the last question, show the result page
       showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) =>
-            ResultPage(result: score, questionLength: _questions.length, startOver: () { startOver(); },),
+        builder: (context) => ResultPage(
+          result: score,
+          questionLength: questionLength,
+          startOver: () {
+            startOver();
+          },
+          goToHomePage: () {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const Homepage()));
+          },
+        ),
       );
     } else {
       // If not the last question
@@ -76,7 +84,7 @@ class _ProjectManagementPastQuestionState extends State<ProjectManagementPastQue
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           shape: RoundedRectangleBorder(
             borderRadius:
-            BorderRadius.circular(35.0), // Adjust the radius as needed
+                BorderRadius.circular(35.0), // Adjust the radius as needed
           ),
         ));
       }
@@ -93,15 +101,15 @@ class _ProjectManagementPastQuestionState extends State<ProjectManagementPastQue
         score++;
       }
 
-        setState(() {
-          isPressed = true;
-          isAlreadySelected = true;
-        });
+      setState(() {
+        isPressed = true;
+        isAlreadySelected = true;
+      });
     }
   }
 
   // Function tha handles the starting over of the current quiz
-  void startOver(){
+  void startOver() {
     setState(() {
       questionIndex = 0;
       score = 0;
@@ -112,75 +120,113 @@ class _ProjectManagementPastQuestionState extends State<ProjectManagementPastQue
   }
 
   @override
+  void initState() {
+    _questions = getQuestions();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Questions',
-          style: GoogleFonts.nunito(color: Colors.white),
-        ),
-        iconTheme: const IconThemeData(color: Colors.white),
-        backgroundColor: const Color(0xFF1D2445),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(18),
-            child: Text(
-              'Score $score',
-              style: GoogleFonts.nunito(color: Colors.white, fontSize: 18),
-            ),
-          ),
-        ],
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Card(
+    // Using the FutureBuilder widget to build data coming from the database
+
+    return FutureBuilder(
+      future: _questions as Future<List<QuestionModel>>,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('${snapshot.error}'),
+            );
+          } else if (snapshot.hasData) {
+            var extractedData = snapshot.data as List<QuestionModel>;
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Questions',
+                  style: GoogleFonts.nunito(color: Colors.white),
+                ),
+                iconTheme: const IconThemeData(color: Colors.white),
+                backgroundColor: const Color(0xFF1D2445),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Text(
+                      'Score $score',
+                      style:
+                          GoogleFonts.nunito(color: Colors.white, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+              body: Container(
+                margin: const EdgeInsets.all(20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // Widget to display the current question
-                    QuestionWidget(
-                        question: _questions[questionIndex].questionTitle),
+                    Expanded(
+                      child: Card(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // Widget to display the current question
+                            QuestionWidget(
+                                question: extractedData[questionIndex].questionTitle),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    // Display answer options
+                    for (int i = 0;
+                        i < extractedData[questionIndex].options.length;
+                        i++)
+                      GestureDetector(
+                        onTap: () {
+                          // Handle option selection
+                          updateQuestionScoreAndChangeAnswerCardColor(snapshot
+                              .data![questionIndex].options.values
+                              .toList()[i]);
+                        },
+                        child: AnswerOptionCard(
+                          option: extractedData[questionIndex].options.keys
+                              .toList()[i],
+                          // Change color based on whether the answer is correct or incorrect
+                          color: isPressed
+                              ? extractedData[questionIndex].options.values
+                                          .toList()[i] ==
+                                      true
+                                  ? Colors.lightGreen
+                                  : Colors.redAccent
+                              : Colors.transparent,
+                        ),
+                      ),
+                    const SizedBox(height: 20),
+                    // Button to move to the next question
+                    AuthButtons(
+                      buttonText: 'Next Question',
+                      onPressed: () {
+                        nextQuestion(extractedData.length);
+                      },
+                    ),
                   ],
                 ),
               ),
+            );
+          }
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: primaryColor,
             ),
-            const SizedBox(height: 10),
-            // Display answer options
-            for (int i = 0; i < _questions[questionIndex].options.length; i++)
-              GestureDetector(
-                onTap: () {
-                  // Handle option selection
-                  updateQuestionScoreAndChangeAnswerCardColor(
-                      _questions[questionIndex].options.values.toList()[i]);
-                },
-                child: AnswerOptionCard(
-                  option: _questions[questionIndex].options.keys.toList()[i],
-                  // Change color based on whether the answer is correct or incorrect
-                  color: isPressed
-                      ? _questions[questionIndex].options.values.toList()[i] ==
-                      true
-                      ? Colors.lightGreen
-                      : Colors.redAccent
-                      : Colors.transparent,
-                ),
-              ),
-            const SizedBox(height: 20),
-            // Button to move to the next question
-            AuthButtons(
-              buttonText: 'Next Question',
-              onPressed: () {
-                nextQuestion();
-              },
-            ),
-          ],
-        ),
-      ),
+          );
+        }
+
+        return const Center(
+          child: Text('No Data'),
+        );
+      },
     );
   }
 }

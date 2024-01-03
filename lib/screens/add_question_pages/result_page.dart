@@ -8,11 +8,13 @@ class ResultPage extends StatelessWidget {
     required this.result,
     required this.questionLength,
     required this.startOver,
+    required this.goToHomePage,
+
   });
 
   final int result;
   final int questionLength;
-  final Function() startOver;
+  final Function() startOver, goToHomePage;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class ResultPage extends StatelessWidget {
           buttonText: 'Go to Homepage',
           buttonTextColor: const Color(0xFF1D2445),
           buttonColor: Colors.orange,
-          onPressed: () {}),
+          onPressed: goToHomePage),
     ]));
   }
 }

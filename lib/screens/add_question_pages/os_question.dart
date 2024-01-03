@@ -112,7 +112,7 @@ class _OSquestionState extends State<OSquestion> {
                       DBconnect db = DBconnect();
                       // Use a try-catch block to handle errors during database interaction
                       try {
-                        await db.addHCIQuestions(QuestionModel(
+                        await db.addOSQuestions(QuestionModel(
                           id: idController.text,
                           questionTitle: questionController.text,
                           options: options,

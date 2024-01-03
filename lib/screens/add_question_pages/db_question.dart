@@ -112,7 +112,7 @@ class _DBQuestionState extends State<DBQuestion> {
                       DBconnect db = DBconnect();
                       // Use a try-catch block to handle errors during database interaction
                       try {
-                        await db.addHCIQuestions(QuestionModel(
+                        await db.addDBQuestions(QuestionModel(
                           id: idController.text,
                           questionTitle: questionController.text,
                           options: options,
