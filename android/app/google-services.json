@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "570685183159",
+    "firebase_url": "https://inquire-24d6d-default-rtdb.firebaseio.com",
+    "project_id": "inquire-24d6d",
+    "storage_bucket": "inquire-24d6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570685183159:android:5ef796ef66e207ad552932",
+        "android_client_info": {
+          "package_name": "com.example.inquire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvABGJlb7uxaxVztJKv1W0iMcHi2LLAAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

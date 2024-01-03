@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:inquire/components/custom_colors.dart';
-import 'package:inquire/models/db_connect.dart';
+import 'package:inquire/models/db_model.dart';
 import 'package:inquire/models/question_model.dart';
 import 'dart:convert';
 

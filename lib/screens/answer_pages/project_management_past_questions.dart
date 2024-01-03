@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:inquire/models/db_connect.dart';
+import 'package:inquire/models/db_model.dart';
 import 'package:inquire/screens/add_question_pages/result_page.dart';
 import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/widgets/answer_options.dart';
@@ -21,7 +21,6 @@ class ProjectManagementPastQuestion extends StatefulWidget {
 class _ProjectManagementPastQuestionState
     extends State<ProjectManagementPastQuestion> {
 
-  // Index to track the current question
 
   var dbConnect = DBconnect();
   late Future _questions;
@@ -142,7 +141,7 @@ class _ProjectManagementPastQuestionState
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                  'Questions',
+                  'PM',
                   style: GoogleFonts.nunito(color: Colors.white),
                 ),
                 iconTheme: const IconThemeData(color: Colors.white),
