@@ -110,17 +110,18 @@ class _HCIQuestionState extends State<HCIQuestion> {
                       };
 
                       DBconnect db = DBconnect();
+
                       // Use a try-catch block to handle errors during database interaction
                       try {
+                        // Perform the database operation
                         await db.addHCIQuestions(QuestionModel(
                           id: idController.text,
                           questionTitle: questionController.text,
                           options: options,
                         ));
 
-                        // Database operation was successful, hide loading indicator and clear text fields
+                        // Database operation was successful, clear text fields
                         setState(() {
-                          isLoading = false;
                           questionController.clear();
                           option1Controller.clear();
                           option2Controller.clear();
@@ -134,7 +135,8 @@ class _HCIQuestionState extends State<HCIQuestion> {
                       } catch (error) {
                         // Handle errors, e.g., show an error message
                         print('Error adding question to the database: $error');
-                        // Optionally, you can still hide the loading indicator here if needed
+                      } finally {
+                        // Hide loading indicator regardless of success or failure
                         setState(() {
                           isLoading = false;
                         });
@@ -150,6 +152,7 @@ class _HCIQuestionState extends State<HCIQuestion> {
                         strokeWidth: 6.0,
                       ),
                     ),
+
                 ],
               ),
 

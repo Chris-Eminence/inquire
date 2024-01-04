@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/screens/onboarding_screens/primary_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,13 +19,22 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _navigationHome();
   }
-
   _navigationHome() async {
     await Future.delayed(Duration(seconds: 5), () {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => PrimaryOnboardingScreen()));
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        // User is signed in, navigate to HomePage
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => Homepage()));
+      } else {
+        // User is not signed in, continue with onboarding
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => PrimaryOnboardingScreen()));
+      }
     });
   }
 

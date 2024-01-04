@@ -16,7 +16,8 @@ Future<UserCredential> signInWithEmailAndPassword(String email, String password)
 
 Future<UserCredential> signUpWithEmailAndPassword(String email, String password) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -27,3 +28,7 @@ Future<UserCredential> signUpWithEmailAndPassword(String email, String password)
     throw e;
   }
 }
+ logoutUser() async {
+   await FirebaseAuth.instance.signOut();
+}
+

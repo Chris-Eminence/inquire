@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inquire/models/authentication_model.dart';
 import 'package:inquire/screens/add_question_pages/question_courses_screen.dart';
 import 'package:inquire/screens/answer_pages/answer_courses_screen.dart';
+import 'package:inquire/screens/authentication_screens/login_screen.dart';
 import 'package:inquire/widgets/home_screen_button.dart';
 
 class Homepage extends StatelessWidget {
@@ -11,9 +13,18 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Homepage',
-            style: GoogleFonts.nunito(color: Colors.white),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Homepage',
+                style: GoogleFonts.nunito(color: Colors.white),
+              ),
+              IconButton(onPressed: (){
+                logoutUser();
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+              }, icon: Icon(Icons.logout))
+            ],
           ),
           backgroundColor: const Color(0xFF1D2445),
         ),
@@ -88,8 +99,8 @@ class Homepage extends StatelessWidget {
                         buttonText: 'Past Questions',
                         buttonTextColor: const Color(0xFF1D2445),
                         buttonColor: Colors.orange,
-                      )
-                    ],
+                      ),
+                      ],
                   )
                 ]),
           ),

@@ -69,7 +69,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       AuthButtons(
                         onPressed: isLoading ? null : () async => await _login(),
                         buttonText: isLoading
-                            ? const CircularProgressIndicator() // Show circular indicator if loading
+                            ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 153),
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            )) // Show circular indicator if loading
                             : Text('Login',  textAlign: TextAlign.center,
                           style: GoogleFonts.nunito(color: Colors.white)),),
                       const SizedBox(height: 30),
@@ -123,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print("Signed in: ${userCredential.user?.uid}");
 
       // Navigate to the homepage or handle success as needed
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const Homepage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Homepage()));
     } catch (e) {
       // Handle errors
       print('Some error occurred, contact support: $e');

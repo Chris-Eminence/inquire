@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:inquire/firebase_options.dart';
+import 'package:inquire/screens/add_question_pages/hci_question.dart';
+import 'package:inquire/screens/answer_pages/hci_past_questions.dart';
 import 'package:inquire/screens/authentication_screens/login_screen.dart';
 import 'package:inquire/screens/authentication_screens/registration_screen.dart';
 import 'package:inquire/screens/onboarding_screens/splash_screen.dart';
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }

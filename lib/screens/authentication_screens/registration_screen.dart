@@ -87,7 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       onPressed: isLoading ? null : () async => await _register(),
                       buttonText: isLoading
                           ? Container(
-                            margin: EdgeInsets.symmetric(horizontal: 150),
+                            margin: EdgeInsets.symmetric(horizontal: 153),
                             child: const CircularProgressIndicator(
                               color: Colors.white,
 
@@ -144,7 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       print("Signed in: ${userCredential.user?.uid}");
 
       // Navigate to the homepage or handle success as needed
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const Homepage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Homepage()));
     } catch (e) {
       // Handle errors
       print('Some error occurred, contact support: $e');
