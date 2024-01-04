@@ -79,7 +79,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         password = value;
                       },
                       hintsText: 'Password',
-                      obscureTexts: false,
+                      obscureTexts: true,
                       keyboardTypes: TextInputType.visiblePassword,
                     ),
                     const SizedBox(height: 30),
