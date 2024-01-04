@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inquire/models/authentication_model.dart';
+import 'package:inquire/screens/home_page.dart';
 import 'package:inquire/widgets/auth_buttons.dart';
 import 'package:inquire/widgets/auth_text_field.dart';
 
@@ -11,6 +14,13 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  String? email;
+  String? password;
+  bool isLoading = false; // Added loading indicator state
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +64,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 20,
                     ),
                     AuthTextFields(
+                      onChange: (value){
+                        email = value;
+                      },
                       hintsText: 'Email address',
                       obscureTexts: false,
                       keyboardTypes: TextInputType.emailAddress,
@@ -62,14 +75,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 20,
                     ),
                     AuthTextFields(
+                      onChange: (value){
+                        password = value;
+                      },
                       hintsText: 'Password',
                       obscureTexts: false,
                       keyboardTypes: TextInputType.visiblePassword,
                     ),
                     const SizedBox(height: 30),
                     AuthButtons(
-                      buttonText: 'Register',
-                    ),
+                      onPressed: isLoading ? null : () async => await _register(),
+                      buttonText: isLoading
+                          ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 150),
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+
+                                                  ),
+                          ) // Show circular indicator if loading
+                          : Text('Register',  textAlign: TextAlign.center,
+                        style: GoogleFonts.nunito(color: Colors.white)),),
                     const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -101,6 +126,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       )),
     );
   }
+
+  Future<void> _register() async {
+    setState(() {
+      isLoading = true; // Set loading to true when login starts
+    });
+
+    try {
+      if (email == null || password == null) {
+        // Handle the case where email or password is null
+        print('Email or password is null');
+        return;
+      }
+
+      // Example: Sign In
+      UserCredential userCredential = await signUpWithEmailAndPassword(email!, password!);
+      print("Signed in: ${userCredential.user?.uid}");
+
+      // Navigate to the homepage or handle success as needed
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const Homepage()));
+    } catch (e) {
+      // Handle errors
+      print('Some error occurred, contact support: $e');
+    } finally {
+      setState(() {
+        isLoading = false; // Set loading to false when login finishes (success or error)
+      });
+    }
+  }
+
+
 }
 
 

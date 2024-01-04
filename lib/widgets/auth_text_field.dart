@@ -4,15 +4,18 @@ class AuthTextFields extends StatelessWidget {
   AuthTextFields(
       {required this.hintsText,
         required this.obscureTexts,
+        this.onChange,
         required this.keyboardTypes});
 
   final String hintsText;
   final bool obscureTexts;
+  final Function(String value)? onChange;
   final TextInputType keyboardTypes;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChange,
       keyboardType: keyboardTypes,
       obscureText: obscureTexts,
       style: const TextStyle(

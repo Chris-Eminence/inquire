@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AuthButtons extends StatelessWidget {
-  AuthButtons({required this.buttonText, this.onPressed});
+  AuthButtons({this.buttonText, this.onPressed});
 
-  final String buttonText;
+  final Widget? buttonText;
   final Function()? onPressed;
 
   @override
@@ -18,9 +18,9 @@ class AuthButtons extends StatelessWidget {
           color: Color(0xFF1D2445),
           borderRadius: BorderRadius.circular(30),
         ),
-        child: Text(buttonText,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.nunito(color: Colors.white)),
+        child: buttonText,
+            // textAlign: TextAlign.center,
+            // style: GoogleFonts.nunito(color: Colors.white)),
       ),
     );
   }

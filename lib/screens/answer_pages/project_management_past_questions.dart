@@ -204,7 +204,8 @@ class _ProjectManagementPastQuestionState
                     const SizedBox(height: 20),
                     // Button to move to the next question
                     AuthButtons(
-                      buttonText: 'Next Question',
+                      buttonText: Text('Next Question',  textAlign: TextAlign.center,
+                          style: GoogleFonts.nunito(color: Colors.white)),
                       onPressed: () {
                         nextQuestion(extractedData.length);
                       },
