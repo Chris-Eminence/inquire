@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
 
-    _navigationHome();
+    // _navigationHome();
   }
   _navigationHome() async {
     await Future.delayed(Duration(seconds: 5), () {
